@@ -1,16 +1,15 @@
-import streamlit as st
-import time
+from flask import Flask
 
-def display_message(message):
-    placeholder = st.empty()
-    placeholder.write(message)
-    time.sleep(2)
-    placeholder.empty()
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return {'message': 'Hello, World!'}
+
+@app.route('/{name}')
+def hello_name(name):
+    return {'message' : f'Hello, {name}!'}
 
 
-st.title("This is a simple Streamlit app.")
-
-stored_inp = st.text_input("Enter your name")
-
-if st.button("Submit"):
-    display_message(f"Hello {stored_inp.upper()}!")
+if __name__ == '__main__':
+    app.run()
